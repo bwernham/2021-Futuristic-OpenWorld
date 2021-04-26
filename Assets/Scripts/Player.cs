@@ -6,6 +6,11 @@ public class Player : MonoBehaviour
 {
     public CharacterController controller;
     public Transform cam;
+    public Transform groundCheck;
+    public float groundDistance;
+    public LayerMask groundMask;
+
+    public bool groundedPlayer;
 
     public float speed = 6f;
 
@@ -17,18 +22,26 @@ public class Player : MonoBehaviour
     public float jumpHeight;
     public float gravity;
 
+    void Start()
+    {
+        Screen.lockCursor = true;
+        Cursor.visible = false;
+    }
+
     void Update()
     {
+        groundedPlayer = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
         Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
 
-        if (controller.isGrounded && velocity.y < 0)
+        if (groundedPlayer && velocity.y < 0)
         {
-            velocity.y = 0f;
+            velocity.y = -2f;
         }
 
-        if (Input.GetButtonDown("Jump")) // isGrounded feature not working properly, takes player about 4 seconds until it can jump again
+        if (Input.GetButtonDown("Jump") && groundedPlayer)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
