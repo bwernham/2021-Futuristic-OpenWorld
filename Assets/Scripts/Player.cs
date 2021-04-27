@@ -12,7 +12,8 @@ public class Player : MonoBehaviour
 
     public bool groundedPlayer;
 
-    public float speed = 6f;
+    public float walkSpeed = 6f;
+    public float runSpeed = 10f;
 
     public float turnSmoothTime = 0.1f;
     float turnSmoothVelocity;
@@ -22,10 +23,15 @@ public class Player : MonoBehaviour
     public float jumpHeight;
     public float gravity;
 
+    private float tapSpeed = 0.5f;
+    private float lastTapTime;
+    private bool doubleTap;
+
     void Start()
     {
         Screen.lockCursor = true;
         Cursor.visible = false;
+        lastTapTime = 0f;
     }
 
     void Update()
@@ -56,7 +62,34 @@ public class Player : MonoBehaviour
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-            controller.Move(moveDir.normalized * speed * Time.deltaTime);
+
+            if (Input.GetKeyDown(KeyCode.W))
+            {
+                if ((Time.time - lastTapTime) < tapSpeed)
+                {
+                    doubleTap = true;
+
+                    if (Input.GetKeyUp(KeyCode.W)) // Character still runs when moving backward or side to side
+                    {
+                        doubleTap = false;
+                    }
+                }
+                else
+                {
+                    doubleTap = false;
+                }
+
+                lastTapTime = Time.time;
+            }
+
+            if (doubleTap)
+            {
+                controller.Move(moveDir.normalized * runSpeed * Time.deltaTime);
+            }
+            else
+            {
+                controller.Move(moveDir.normalized * walkSpeed * Time.deltaTime);
+            }
         }
     }
 }

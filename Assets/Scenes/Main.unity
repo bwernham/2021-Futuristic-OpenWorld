@@ -766,13 +766,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705507993}
-  m_LocalRotation: {x: 0.5758235, y: -0, z: -0, w: 0.817574}
-  m_LocalPosition: {x: 0, y: 10, z: 0}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 35.72, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 70.315, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &816670851
 GameObject:
   m_ObjectHideFlags: 3
@@ -901,7 +901,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   groundedPlayer: 0
-  speed: 6
+  walkSpeed: 6
+  runSpeed: 18
   turnSmoothTime: 0.1
   jumpHeight: 5
   gravity: -40
@@ -1427,7 +1428,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1553595997}
-  m_LocalRotation: {x: 0.059957173, y: 0.055571318, z: -0.0033431079, w: 0.9966473}
+  m_LocalRotation: {x: 0.059957135, y: 0.05557132, z: -0.0033431062, w: 0.9966473}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
