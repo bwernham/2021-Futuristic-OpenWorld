@@ -29,7 +29,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        Screen.lockCursor = true;
+        Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         lastTapTime = 0f;
     }
@@ -55,6 +55,11 @@ public class Player : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
 
+        if (Input.GetKeyUp(KeyCode.W)) // Character still runs when moving backward or side to side
+        {
+            doubleTap = false;
+        }
+
         if (direction.magnitude >= 0.1f)
         {
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
@@ -68,11 +73,6 @@ public class Player : MonoBehaviour
                 if ((Time.time - lastTapTime) < tapSpeed)
                 {
                     doubleTap = true;
-
-                    if (Input.GetKeyUp(KeyCode.W)) // Character still runs when moving backward or side to side
-                    {
-                        doubleTap = false;
-                    }
                 }
                 else
                 {
